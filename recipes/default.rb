@@ -15,15 +15,16 @@ when 'rhel' # rhel, centos, amazon linux
   command = 'yum clean all'
 end
 
-if !platform?('windows')
-execute 'clean repo cache' do
-  command command
+unless node['platform']== 'windows'
+  execute 'clean repo cache' do
+    command command
+  end
 end
 
 package 'git' do
   action :install
 end
-end
+
 # Download and untar/unzip the specified package in the /tmp/deploynow/cookbooks dir
 node['deploynowpackages']['packages'].each do |package|
   raise "REAN Deploy : Package [#{package}] is required to be a hash" unless package.is_a? Hash
