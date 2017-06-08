@@ -15,14 +15,14 @@ when 'rhel' # rhel, centos, amazon linux
   command = 'yum clean all'
 end
 
-unless node['platform']== 'windows'
+unless node['platform'] == 'windows'
   execute 'clean repo cache' do
     command command
   end
-end
 
-package 'git' do
-  action :install
+  package 'git' do
+    action :install
+  end
 end
 
 # Download and untar/unzip the specified package in the /tmp/deploynow/cookbooks dir
